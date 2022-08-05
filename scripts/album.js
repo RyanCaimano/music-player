@@ -13,8 +13,21 @@ var createSongRow = function (songNumber, songName, songLength) {
     songLength +
     "</td>" +
     "</tr>";
-  var $row = $(template);
 
+  var onHover = function () {
+    var songItem = $(this).find(".song-item-number");
+
+    songItem.html(playButtonTemplate);
+  };
+
+  var offHover = function () {
+    var songItem = $(this).find(".song-item-number");
+    var songNumber = songItem.attr("data-song-number");
+
+    songItem.html(songNumber);
+  };
+  var $row = $(template);
+  $row.hover(onHover, offHover);
   return $row;
 };
 
@@ -41,5 +54,8 @@ var setCurrentAlbum = function (album) {
     $albumSongList.append($songRow);
   }
 };
+
+var playButtonTemplate =
+  '<a class="album-song-button"><span class="ion-play"></span></a>';
 
 setCurrentAlbum(albums[0]);
